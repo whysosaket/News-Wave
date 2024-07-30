@@ -7,7 +7,7 @@ services:
       dockerfile: Dockerfile
     image: whysosaket/news-frontend:latest
     ports:
-      - "8080:80"
+      - "9000:80"
     depends_on:
       - flask-server
     restart: always
@@ -22,7 +22,7 @@ services:
       dockerfile: Dockerfile
     image: whysosaket/flask-server:latest
     ports:
-      - "8000:5000"
+      - "5007:5000"
     restart: always
     networks:
       - news-network
