@@ -1,7 +1,5 @@
 pipeline{
-    agent {
-        docker { image 'node:20.16.0-alpine3.20' }
-    }
+    agent any
     stages{
         stage("Clean Up"){
             steps{
