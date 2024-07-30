@@ -1,0 +1,34 @@
+version: '3.7'
+
+services:
+  news-frontend:
+    build:
+      context: frontend/
+      dockerfile: Dockerfile
+    image: whysosaket/news-frontend:latest
+    ports:
+      - "8080:80"
+    depends_on:
+      - flask-server
+    restart: always
+    environment:
+      - CURRENCY_EXCHANGE_URI=http://currency-exchange-service:8000
+    networks:
+      - news-network
+
+  flask-server:
+    build:
+      context: Flask-Server/
+      dockerfile: Dockerfile
+    image: whysosaket/flask-server:latest
+    ports:
+      - "8000:5000"
+    restart: always
+    networks:
+      - news-network
+  
+  
+  
+# Networks to be created to facilitate communication between containers
+networks:
+  news-network:
