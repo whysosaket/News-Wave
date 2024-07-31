@@ -7,7 +7,7 @@ services:
       dockerfile: Dockerfile
     image: whysosaket/news-frontend:latest
     ports:
-      - "9000:80"
+      - "80:80"
     depends_on:
       - flask-server
     restart: always
@@ -26,9 +26,39 @@ services:
     restart: always
     networks:
       - news-network
+
+  backend-server:
+    build:
+      context: backend/
+      dockerfile: Dockerfile
+    image: whysosaket/news-backend:latest
+    ports:
+      - "9000:9000"
+    restart: always
+    depends_on:
+      - flask-server
+      - mongo
+    environment:
+      - MONGO=mongodb://mongo:27017/
+    networks:
+      - news-network
+  
+  mongo:
+    image: mongo
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+    networks:
+      - news-network
+    volumes:
+      - mongo-data:/data/db
   
   
   
 # Networks to be created to facilitate communication between containers
 networks:
   news-network:
+
+volumes:
+  mongo-data:
