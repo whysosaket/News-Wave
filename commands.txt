@@ -1,0 +1,5 @@
+// build jenkins server
+docker build -t whysosaket/docker-jenkins:latest .
+
+// run jenkins server
+docker run -d --name jenkins-server -p 8080:8080 -p 50000:50000 --restart=on-failure -v jenkins_home:/var/jenkins_home whysosaket/docker-jenkins:latest
