@@ -3,3 +3,4 @@
 **/.env
 **/ignore
 **/dist
+server_pids.log
