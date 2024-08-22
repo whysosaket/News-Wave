@@ -1,6 +1,6 @@
 **/.DS_Store
 **/node_modules
 **/.env
-**/ignore
+**/helpers
 **/dist
 server_pids.log
