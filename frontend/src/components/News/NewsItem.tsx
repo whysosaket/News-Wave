@@ -1,4 +1,16 @@
+import { useState } from "react";
+import { IoMdArrowDropdown } from "react-icons/io";
+
+const news = "WestRock Jacksonville - 9469 Eastport Rd, Jacksonville, FL 32218 WestRock Jacksonville - 9469 Eastport Rd, Jacksonville, FL 32218 WestRock Jacksonville - 9469 Eastport Rd, Jacksonville, FL 32218 WestRock Jacksonville - 9469 Eastport Rd, Jacksonville, FL 32218 WestRock Jacksonville - 9469 Eastport Rd, Jacksonville, FL 32218 WestRock Jacksonville - 9469 Eastport Rd, Jacksonville, FL 32218 WestRock Jacksonville - 9469 Eastport Rd, Jacksonville, FL 32218";
+
 const NewsItem = () => {
+  const [isExpanded, setIsExpanded] = useState(false);
+
+
+  const toggleExpand = ()=>{
+    setIsExpanded(!isExpanded);
+  }
+
   return (
     <>
       <div className="bg-gray-100 mx-auto border-gray-500 border rounded-sm  text-gray-700 mb-0.5">
@@ -14,7 +26,7 @@ const NewsItem = () => {
             <div className="text-sm leading-5 font-semibold">
               <span className="text-xs leading-4 font-normal text-gray-500 pr">
                 {" "}
-                BOL #
+                ID #
               </span>{" "}
               10937
             </div>
@@ -25,21 +37,21 @@ const NewsItem = () => {
           <div className="flex-1 my-2 md:my-0">
             <div className="md:ml-3 space-y-1 border-r-2 pr-3">
               <div className="text-base leading-6 font-normal">
-                KROGER MEMPHIS
+                THIS IS TITLE
               </div>
               <div className="text-sm leading-4 font-normal">
                 <span className="text-xs leading-4 font-normal text-gray-500">
                   {" "}
-                  Carrier
+                  Subject
                 </span>{" "}
-                PAPER TRANSPORT INC.
+                Political News
               </div>
               <div className="text-sm leading-4 font-normal">
                 <span className="text-xs leading-4 font-normal text-gray-500">
                   {" "}
-                  Destination
+                  News
                 </span>{" "}
-                WestRock Jacksonville - 9469 Eastport Rd, Jacksonville, FL 32218
+                {isExpanded?news:news.substring(0,90)+"...."}
               </div>
             </div>
           </div>
@@ -47,7 +59,7 @@ const NewsItem = () => {
             <div>
               <div className="md:ml-3 my-3 border-gray-200 border-2 bg-gray-300 p-1">
                 <div className="uppercase text-xs leading-4 font-medium">
-                  Trailer
+                  views
                 </div>
                 <div className="text-center text-sm leading-4 font-semibold text-gray-800">
                   89732
@@ -58,26 +70,13 @@ const NewsItem = () => {
           <div>
             <div className="md:ml-3 my-2 md:my-5 bg-green-600 p-1 w-20">
               <div className="uppercase text-xs leading-4 font-semibold text-center text-green-100">
-                Picked UP
+                Check
               </div>
             </div>
           </div>
           <div>
-            <button className="text-gray-100 rounded-sm my-5 ml-2 focus:outline-none bg-gray-500">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-6 w-6"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M19 9l-7 7-7-7"
-                />
-              </svg>
+            <button onClick={toggleExpand} className="text-gray-100 rounded-sm my-5 ml-2 focus:outline-none bg-gray-500">
+              <IoMdArrowDropdown size={25} />
             </button>
           </div>
         </div>
