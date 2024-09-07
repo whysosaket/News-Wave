@@ -14,14 +14,8 @@ log_pid() {
 # Clean up old log file
 > $LOG_FILE
 
-# Run the Flask Server
-cd Flask-Server
-python app.py &
-FLASK_PID=$!
-log_pid $FLASK_PID
-
 # Run the Backend Server
-cd ../backend
+cd backend
 if [ "$1" == "dev" ]; then
   npm run dev &
 else
@@ -35,5 +29,11 @@ cd ../frontend
 npm run dev &
 FRONTEND_PID=$!
 log_pid $FRONTEND_PID
+
+# Run the Flask Server
+cd ../Flask-Server
+python app.py
+FLASK_PID=$!
+log_pid $FLASK_PID
 
 echo "Servers started. PIDs logged in $LOG_FILE."
