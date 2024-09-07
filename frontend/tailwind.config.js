@@ -17,6 +17,11 @@ module.exports = {
   		}
   	},
   	extend: {
+		fontFamily: {
+			space: ["Space Mono", "system-ui"],
+			roboto: ["Roboto", "system-ui"],
+			inter: ["Inter", "system-ui"]
+		},
   		colors: {
   			border: 'hsl(var(--border))',
   			input: 'hsl(var(--input))',

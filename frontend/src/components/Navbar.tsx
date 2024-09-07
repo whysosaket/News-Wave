@@ -1,6 +1,7 @@
 import { CgProfile } from "react-icons/cg";
 import { FaRegHeart } from "react-icons/fa6";
 import { Link } from "react-router-dom";
+import {motion} from "framer-motion";
 
 const Navbar = () => {
   return (
@@ -9,7 +10,11 @@ const Navbar = () => {
   {/* follow me on twitter @asad_codes */}
     <section className="relative mx-auto">
       {/* navbar */}
-      <nav className="flex justify-between bg-black text-white w-full">
+      <motion.nav
+      initial={{y: -100, x: 200, opacity: 0}}
+      animate={{y: 0, x: 0, opacity: 1}}
+      transition={{delay: 0, duration: 0.5}}
+      className="flex justify-between bg-black text-white w-full">
         <div className="px-5 xl:px-12 py-6 flex w-full items-center">
           <a className="text-3xl font-semibold font-heading flex" href="#">
             <img className="h-10 cursor-pointer invert mr-0" src="logo.png" alt="logo" />
@@ -86,7 +91,7 @@ const Navbar = () => {
             />
           </svg>
         </a>
-      </nav>
+      </motion.nav>
     </section>
 
 </>
