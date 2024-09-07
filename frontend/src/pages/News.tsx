@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
-import AnimatedNewsTab from "../components/News/AnimatedNewsTable";
-import FilterComponent from "../components/News/FilterComponent";
+import AnimatedNewsTab from "@/components/News/AnimatedNewsTable";
+import FilterComponent from "@/components/News/FilterComponent";
 import { useState } from "react";
 import { MdFilterAlt, MdFilterAltOff } from "react-icons/md";
 
@@ -20,7 +20,7 @@ const News = () => {
           {/* <NewsItem /> */}
           <AnimatedNewsTab />
         </div>
-        <div className="md:w-1/3 md:px-10 mb-6 mt-6 md:mt-0">
+        <div className="md:w-1/3 md:px-10 mb-6 mt-6 md:mb-0 md:mt-0">
           <div className="w-full md:flex justify-end hidden">
             <Button onClick={() => setIsFilter(!isFilter)} variant={"outline"} className="mb-5" >
             Toggle Filters
