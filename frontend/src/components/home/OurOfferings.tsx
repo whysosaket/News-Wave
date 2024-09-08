@@ -9,8 +9,8 @@ import {
 
 const OurOfferings = () => {
   return (
-    <div className="text-white w-full px-8 mb-3 flex">
-      <div className="w-1/3">
+    <div className="text-white w-full px-8 mb-3 md::flex">
+      <div className="md:w-1/3">
         <Accordion type="single" collapsible>
           <AccordionItem value="item-1">
             <AccordionTrigger>Real-Time News Updates</AccordionTrigger>
