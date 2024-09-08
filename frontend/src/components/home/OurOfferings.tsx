@@ -1,3 +1,4 @@
+import { Quotes } from "@/features/quotes/Quotes";
 import {
   Accordion,
   AccordionContent,
@@ -58,7 +59,7 @@ const OurOfferings = () => {
         </Accordion>
       </div>
       <div className="w-2/3">
-        ksd
+        <Quotes />
       </div>
     </div>
   );

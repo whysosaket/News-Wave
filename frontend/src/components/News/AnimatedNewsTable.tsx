@@ -1,49 +1,24 @@
-import React, { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import { ChevronDownIcon, ChevronUpIcon } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
+import { useGetNewsQuery } from '@/features/newsApiSlice'
+import FailedToLoadNews from './failed-to-load-news'
+import LoadingComponent from './LoadingComponent'
+import {NewsInterface} from "@/features/newsApiSlice"
 
-// Mock data for the news items
-const newsItems = [
-  {
-    id: 1,
-    title: "New AI Breakthrough",
-    text: "Researchers have made a significant breakthrough in AI technology, potentially revolutionizing the field.",
-    subject: "Technology",
-    date: "2023-06-15"
-  },
-  {
-    id: 2,
-    title: "Global Climate Summit Announced",
-    text: "World leaders are set to meet for a crucial climate summit to address pressing environmental issues.",
-    subject: "Environment",
-    date: "2023-07-01"
-  },
-  {
-    id: 3,
-    title: "Major Economic Reform Proposed",
-    text: "A new economic reform package has been proposed, aiming to boost growth and reduce inequality.",
-    subject: "Economy",
-    date: "2023-06-20"
-  },
-  {
-    id: 4,
-    title: "Breakthrough in Quantum Computing",
-    text: "Scientists have achieved a major milestone in quantum computing, paving the way for unprecedented computational power.",
-    subject: "Science",
-    date: "2023-06-18"
-  }
-]
 
-const NewsItem = ({ item }) => {
+const NewsItem = ({ item }: {item: NewsInterface}) => {
   const [isExpanded, setIsExpanded] = useState(false)
-  const [isFake, setIsFake] = useState(null)
+  const [isChecked, setIsChecked] = useState(false)
+  const [isFake, setIsFake] = useState<boolean>(false)
 
   const toggleExpand = () => setIsExpanded(!isExpanded)
 
   const checkFakeNews = () => {
-    setIsFake(Math.random() < 0.5)
+    setIsChecked(true)
+    setIsFake(true)
   }
 
   return (
@@ -59,7 +34,9 @@ const NewsItem = ({ item }) => {
             onClick={toggleExpand}
           >
             <div className="flex justify-between items-center">
-              <h3 className="text-lg font-semibold">{item.title}</h3>
+              <h3 className="text-lg font-semibold">{
+                isExpanded?item.title:item.title.substring(0,50)+"....."
+                }</h3>
               {isExpanded ? <ChevronUpIcon /> : <ChevronDownIcon />}
             </div>
             <p className="text-sm text-gray-500">{item.subject} | {item.date}</p>
@@ -76,7 +53,7 @@ const NewsItem = ({ item }) => {
                 <Button onClick={checkFakeNews} variant="outline" className='text-black'>
                   Check if Fake News
                 </Button>
-                {isFake !== null && (
+                {isChecked && (
                   <span className={`font-semibold ${isFake ? 'text-red-500' : 'text-green-500'}`}>
                     {isFake ? 'Fake' : 'True'}
                   </span>
@@ -91,14 +68,48 @@ const NewsItem = ({ item }) => {
 }
 
 export default function Component() {
+
+  const [newsItems, setNewsItems] = useState<NewsInterface[]>([]);
+  const handleRetry = () => {
+    // Implement your retry logic here
+    console.log('Retrying to load news...')
+  }
+
+  const { data, isError, isLoading, isSuccess } = useGetNewsQuery(1);
+
+  useEffect(() => {
+    if (!isLoading && isSuccess && data) {
+      setNewsItems(data.news);
+    }
+  }, [isLoading, isSuccess, data]); 
+
+  if(isLoading){
+    return (
+      <>
+        <h1 className="text-3xl font-bold mb-6 text-center text-white">Latest News</h1>
+        <LoadingComponent />
+        <LoadingComponent />
+        <LoadingComponent />
+      </>
+    )}
+
+  if(isError){
+    return (
+      <>
+        <FailedToLoadNews onRetry={handleRetry} />
+      </>
+    )
+  }
+
+  if(isSuccess){
   return (
     <>
       <h1 className="text-3xl font-bold mb-6 text-center text-white">Latest News</h1>
       <div className="space-y-4">
         {newsItems.map((item) => (
-          <NewsItem key={item.id} item={item} />
+          <NewsItem key={item._id} item={item} />
         ))}
       </div>
     </>
-  )
+  )}
 }

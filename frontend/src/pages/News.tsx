@@ -6,6 +6,7 @@ import { MdFilterAlt, MdFilterAltOff } from "react-icons/md";
 
 const News = () => {
   const [isFilter, setIsFilter] = useState(false);
+
   return (
     <>
       <Button onClick={()=> setIsFilter(!isFilter)} className="md:hidden hover:bg-gray-200 bg-white rounded-full text-black w-14 h-14 fixed bottom-2 right-2">
@@ -13,7 +14,7 @@ const News = () => {
           isFilter?<MdFilterAltOff size={30}/>:<MdFilterAlt size={30}/>
         }
       </Button>
-      <div className="container mx-auto md:min-h-screen px-8 md:p-8 antialiased flex flex-col-reverse md:flex-row justify-center align-middle">
+      <div className="text-white container mx-auto md:min-h-screen px-8 md:p-8 antialiased flex flex-col-reverse md:flex-row justify-center align-middle">
         <div className="md:w-2/3">
           {/* <NewsItem /> */}
           {/* <NewsItem /> */}
