@@ -9,6 +9,7 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
 import { isEmailValid, toTitleCase } from "../utils/UserHelper";
+import CustomRequest from "../types/CustomRequest";
 
 const JWT_SECRET = process.env.JWT_SECRET as string;
 
@@ -99,4 +100,25 @@ const loginUser = async (req: Request, res: Response) => {
   }
 };
 
-export { createUser, loginUser };
+const verifyUser = async (req: CustomRequest, res: Response) => {
+  let success = false;
+
+  let userId = req.user.id;
+
+  try {
+    let user = await User.findById(userId).exec();
+
+    if (!user) {
+      return res
+        .status(400)
+        .json({ error: "Please, login with correct credentials" });
+    }
+
+    return res.json({ success, user: {name: user.name, email: user.email} });
+  } catch (error) {
+    console.log(error);
+    return res.json({ error: "Something Went Wrong!" });
+  }
+};
+
+export { createUser, loginUser, verifyUser };

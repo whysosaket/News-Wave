@@ -35,7 +35,21 @@ export const authSlice = createAppSlice({
     }),
 
     register: create.asyncThunk( 
-        registerUser
+      async ({name, email, password}:{name: string, email: string, password: string}) => {
+        const response = await registerUser({ name, email, password})
+        return response
+      },
+      {
+        pending: state => {
+          state.status = "loading"
+        },
+        fulfilled: (state) => {
+          state.status = "idle"
+        },
+        rejected: state => {
+          state.status = "failed"
+        },
+      }
     ),
     login: create.asyncThunk(
         async ({email, password}:{email: string, password: string}) => {
