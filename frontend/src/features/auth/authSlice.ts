@@ -1,5 +1,5 @@
 import { createAppSlice } from '@/app/CreateAppSlice'
-import { registerUser, loginUser } from './authActions'
+import { registerUser, loginUser, verifyUser } from './authActions'
 
 export interface User {
     name: string | null
@@ -64,12 +64,32 @@ export const authSlice = createAppSlice({
             state.status = "idle"
             state.userInfo = action.payload.user
             state.userToken = action.payload.authtoken
+            localStorage.setItem('news-auth-token', action.payload.authtoken)
           },
           rejected: state => {
             state.status = "failed"
           },
         }
-    )
+    ),
+    verify: create.asyncThunk( 
+      async () => {
+        const response = await verifyUser()
+        return response
+      },
+      {
+        pending: state => {
+          state.status = "loading"
+        },
+        fulfilled: (state, action) => {
+          state.status = "idle"
+          state.userInfo = action.payload.user
+          state.userToken = localStorage.getItem('news-auth-token')
+        },
+        rejected: state => {
+          state.status = "failed"
+        },
+      }
+    ),
   }),
   
   selectors: {
@@ -80,4 +100,4 @@ export const authSlice = createAppSlice({
 })
 
 export const { selectToken, selectUserInfo } = authSlice.selectors
-export const { login, register, logout } = authSlice.actions
+export const { login, register, logout, verify } = authSlice.actions

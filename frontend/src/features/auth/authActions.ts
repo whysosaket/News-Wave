@@ -38,17 +38,16 @@ export const loginUser = async ({ email, password }: { email: string, password: 
 }
 }
 
-export const verifyUser = async ({ email, password }: { email: string, password: string }) => {
+export const verifyUser = async () => {
   try {
-    console.log("Hrllo",email, password)
     const config = {
       headers: {
         'Content-Type': 'application/json',
+        'auth-token': localStorage.getItem('news-auth-token')
       },
     }
-    const response = await axios.post(
-      `${backendURL}/api/auth/login`,
-      { email, password },
+    const response = await axios.get(
+      `${backendURL}/api/auth/verify`,
       config
     )
     return response.data

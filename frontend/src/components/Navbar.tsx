@@ -5,12 +5,27 @@ import { motion } from "framer-motion";
 import { IoNewspaperOutline, IoPerson, IoLogOutOutline } from "react-icons/io5";
 import { selectToken } from "@/features/auth/authSlice";
 import { useAppSelector } from "@/app/hooks";
-import { logout } from "@/features/auth/authSlice";
+import { logout, verify } from "@/features/auth/authSlice";
 import { useDispatch } from "react-redux";
+import { useCallback, useEffect } from "react";
 
 const Navbar = () => {
   const dispatch = useDispatch();
   const userToken = useAppSelector(selectToken);
+
+  const handleVerification = useCallback(async () => {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    //@ts-expect-error
+    dispatch(verify());
+  }, [dispatch]);
+  
+  useEffect(() => {
+    console.log("huuu")
+    if(localStorage.getItem("news-auth-token")) handleVerification();
+  }, [userToken, handleVerification]);
+
+
+  
   return (
     <>
       {/* component */}
