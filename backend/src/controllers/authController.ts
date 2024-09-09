@@ -92,7 +92,7 @@ const loginUser = async (req: Request, res: Response) => {
 
     const authtoken = jwt.sign(payload, JWT_SECRET);
     success = true;
-    return res.json({ success, authtoken });
+    return res.json({ success, authtoken, user: {name: user.name, email: user.email} });
   } catch (error) {
     console.log(error);
     return res.json({ error: "Something Went Wrong!" });

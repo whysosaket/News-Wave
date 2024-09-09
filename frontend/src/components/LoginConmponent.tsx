@@ -1,4 +1,22 @@
+import { login } from "@/features/auth/authSlice"
+import { useAppDispatch } from "@/app/hooks"
+import { useRef } from "react";
+
 const LoginComponent = () => {
+
+  const dispatch = useAppDispatch()
+
+  const emailRef = useRef<HTMLInputElement>(null)
+  const passwordRef = useRef<HTMLInputElement>(null)
+
+  const handleLogin = async ()=>{
+    const email = emailRef.current?.value || "";
+    const password = passwordRef.current?.value || "";
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    //@ts-expect-error
+    dispatch(login({email, password}));
+  }
+
   return (
     <div>
       <div className="relative grid bg-black">
@@ -12,7 +30,7 @@ const LoginComponent = () => {
               <div className="lg:text-left text-center">
                 <div className="flex items-center justify-center">
                   <div className="bg-black flex flex-col w-80 border border-gray-900 rounded-lg px-8 py-10">
-                    <form
+                    <div
                       className="flex flex-col space-y-8 mt-10"
                       onSubmit={() => {}}
                     >
@@ -20,6 +38,7 @@ const LoginComponent = () => {
                         Email
                       </label>
                       <input
+                        ref={emailRef}
                         type="email"
                         placeholder="Email"
                         className="border rounded-lg py-3 px-3 mt-4 bg-black border-indigo-600 placeholder-white text-white"
@@ -28,17 +47,18 @@ const LoginComponent = () => {
                         Password
                       </label>
                       <input
+                        ref={passwordRef}
                         type="password"
                         placeholder="****"
                         className="border rounded-lg py-3 px-3 bg-black border-indigo-600 placeholder-white text-white"
                       />
                       <button
-                        type="submit"
+                        onClick={handleLogin}
                         className="border border-indigo-600 bg-black text-white rounded-lg py-3 font-semibold"
                       >
                         Login
                       </button>
-                    </form>
+                    </div>
                   </div>
                 </div>
               </div>
