@@ -32,6 +32,7 @@ export const authSlice = createAppSlice({
         state.userInfo = {name: null, email: null};
         state.userToken = null;
         state.success = false;
+        localStorage.removeItem('news-auth-token')
     }),
 
     register: create.asyncThunk( 
@@ -83,7 +84,7 @@ export const authSlice = createAppSlice({
         fulfilled: (state, action) => {
           state.status = "idle"
           state.userInfo = action.payload.user
-          state.userToken = localStorage.getItem('news-auth-token')
+          state.userToken = localStorage.getItem('news-auth-token') || null
         },
         rejected: state => {
           state.status = "failed"

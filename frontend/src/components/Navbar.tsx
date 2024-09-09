@@ -20,7 +20,6 @@ const Navbar = () => {
   }, [dispatch]);
   
   useEffect(() => {
-    console.log("huuu")
     if(localStorage.getItem("news-auth-token")) handleVerification();
   }, [userToken, handleVerification]);
 
