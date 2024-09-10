@@ -10,7 +10,7 @@ export const registerUser = async ({ name, email, password }: { name: string, em
       },
     }
     const response = await axios.post(
-      `${backendURL}/api/auth/register`,
+      `${backendURL}/api/auth/signup`,
       { name, email, password },
       config
     )

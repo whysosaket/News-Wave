@@ -95,10 +95,11 @@ export const authSlice = createAppSlice({
   
   selectors: {
     selectToken: auth => auth.userToken,
-    selectUserInfo: auth => auth.userInfo
+    selectUserInfo: auth => auth.userInfo,
+    selectUserStatus: auth => auth.status
   },
  
 })
 
-export const { selectToken, selectUserInfo } = authSlice.selectors
+export const { selectToken, selectUserInfo, selectUserStatus } = authSlice.selectors
 export const { login, register, logout, verify } = authSlice.actions
