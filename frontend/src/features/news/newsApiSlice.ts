@@ -15,7 +15,7 @@ interface NewsApiResponse {
   success: boolean
   news: News[]
   currentPage: number
-  toatlPages: number
+  totalPages: number
   totalItems: number
 }
 

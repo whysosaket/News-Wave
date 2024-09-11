@@ -7,6 +7,8 @@ import { useGetNewsQuery } from '@/features/news/newsApiSlice'
 import FailedToLoadNews from './failed-to-load-news'
 import LoadingComponent from './LoadingComponent'
 import {NewsInterface} from "@/features/news/newsApiSlice"
+import { MdNavigateNext, MdNavigateBefore } from "react-icons/md";
+import { useSearchParams } from 'react-router-dom'
 
 
 const NewsItem = ({ item }: {item: NewsInterface}) => {
@@ -70,18 +72,38 @@ const NewsItem = ({ item }: {item: NewsInterface}) => {
 export default function Component() {
 
   const [newsItems, setNewsItems] = useState<NewsInterface[]>([]);
-  const handleRetry = () => {
-    // Implement your retry logic here
-    console.log('Retrying to load news...')
-  }
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [pageNumber, setPageNumber] = useState(Number(searchParams.get("page")) || 1);
 
-  const { data, isError, isLoading, isSuccess } = useGetNewsQuery(1);
+  const { data, isError, isLoading, isSuccess } = useGetNewsQuery(pageNumber);
+
+  const handleRetry = () => {
+    console.log('Retrying to load news...');
+  };
+
+  const handleNext = () => {
+    if (data && pageNumber < data.totalPages) {
+      const newVal = pageNumber + 1;
+      setPageNumber(newVal);
+      searchParams.set("page", String(newVal));
+      setSearchParams(searchParams);
+    }
+  };
+
+  const handlePrev = () => {
+    if (pageNumber > 1) {
+      const newVal = pageNumber - 1;
+      setPageNumber(newVal);
+      searchParams.set("page", String(newVal));
+      setSearchParams(searchParams);
+    }
+  };
 
   useEffect(() => {
     if (!isLoading && isSuccess && data) {
       setNewsItems(data.news);
     }
-  }, [isLoading, isSuccess, data]); 
+  }, [isLoading, isSuccess, data]);
 
   if(isLoading){
     return (
@@ -109,6 +131,13 @@ export default function Component() {
         {newsItems.map((item) => (
           <NewsItem key={item._id} item={item} />
         ))}
+      </div>
+      <div className='flex gap-3 justify-center'>
+        <Button onClick={handlePrev} className='hover:bg-gray-300 flex justify-center align-middl bg-white text-black'>Back <MdNavigateBefore className='my-auto' size={22} /> </Button>
+        <div className='my-auto'>
+          {pageNumber}
+        </div>
+        <Button onClick={handleNext} className='hover:bg-gray-300 flex justify-center align-middl bg-white text-black'>Next <MdNavigateNext className='my-auto' size={22} /> </Button>
       </div>
     </>
   )}
