@@ -7,7 +7,7 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import News from "../models/News";
 
-const flaskURL = 'http://127.0.0.1:5001'
+const flaskURL = process.env.FLASK_URL as string
 
 const getNews = async (req: Request, res: Response) => {
   let success = false;

@@ -12,7 +12,7 @@ services:
       - flask-server
     restart: always
     environment:
-      - CURRENCY_EXCHANGE_URI=http://currency-exchange-service:8000
+      - VITE_SERVER=http://backend-server:9000
     networks:
       - news-network
 
@@ -40,6 +40,8 @@ services:
       - mongo
     environment:
       - MONGO=mongodb://mongo:27017/
+      - SECRET=secret
+      - FLASK_URL=http://flask-server:5007
     networks:
       - news-network
   
