@@ -39,7 +39,7 @@ services:
       - flask-server
       - mongo
     environment:
-      - MONGO=mongodb://mongo:27017/
+      - MONGO=mongodb://mongo:27017/news-website
       - SECRET=secret
       - FLASK_URL=http://flask-server:5007
     networks:
