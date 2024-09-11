@@ -1,7 +1,7 @@
 // Need to use the React-specific entry point to import `createApi`
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react"
 
-const baseURL = "http://localhost:9000";
+const baseURL = import.meta.env.VITE_SERVER
 
 interface News {
   _id: string

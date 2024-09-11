@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const backendURL = 'http://127.0.0.1:9000'
+const backendURL = import.meta.env.VITE_SERVER
 
 export const registerUser = async ({ name, email, password }: { name: string, email: string, password: string }) => {
   try {
