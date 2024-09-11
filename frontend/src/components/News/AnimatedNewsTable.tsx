@@ -3,10 +3,10 @@ import { motion } from 'framer-motion'
 import { ChevronDownIcon, ChevronUpIcon } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
-import { useGetNewsQuery } from '@/features/newsApiSlice'
+import { useGetNewsQuery } from '@/features/news/newsApiSlice'
 import FailedToLoadNews from './failed-to-load-news'
 import LoadingComponent from './LoadingComponent'
-import {NewsInterface} from "@/features/newsApiSlice"
+import {NewsInterface} from "@/features/news/newsApiSlice"
 
 
 const NewsItem = ({ item }: {item: NewsInterface}) => {

@@ -2,7 +2,7 @@ import type { Action, Reducer, Store, ThunkAction } from "@reduxjs/toolkit"
 import { combineSlices, configureStore } from "@reduxjs/toolkit"
 import { setupListeners } from "@reduxjs/toolkit/query"
 import { quotesApiSlice } from "@/features/quotes/quotesApiSlice"
-import { newsApiSlice } from "@/features/newsApiSlice"
+import { newsApiSlice } from "@/features/news/newsApiSlice"
 import { authSlice } from "@/features/auth/authSlice"
 
 // `combineSlices` automatically combines the reducers using
