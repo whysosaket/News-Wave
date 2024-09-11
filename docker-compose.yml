@@ -21,8 +21,6 @@ services:
       context: Flask-Server/
       dockerfile: Dockerfile
     image: whysosaket/flask-server:latest
-    ports:
-      - "5007:5000"
     restart: always
     networks:
       - news-network
@@ -39,9 +37,9 @@ services:
       - flask-server
       - mongo
     environment:
-      - MONGO=mongodb://mongo:27017/news-website
+      - MONGO=mongodb://root:example@mongo:27017/news-website?authSource=admin
       - SECRET=secret
-      - FLASK_URL=http://flask-server:5007
+      - FLASK_URL=http://flask-server:5001
     networks:
       - news-network
   
