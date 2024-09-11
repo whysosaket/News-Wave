@@ -3,7 +3,7 @@ import { motion } from 'framer-motion'
 import { ChevronDownIcon, ChevronUpIcon } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
-import { useGetNewsQuery } from '@/features/news/newsApiSlice'
+import { useGetNewsQuery, usePostNewsMutation } from '@/features/news/newsApiSlice'
 import FailedToLoadNews from './failed-to-load-news'
 import LoadingComponent from './LoadingComponent'
 import {NewsInterface} from "@/features/news/newsApiSlice"
@@ -15,12 +15,19 @@ const NewsItem = ({ item }: {item: NewsInterface}) => {
   const [isExpanded, setIsExpanded] = useState(false)
   const [isChecked, setIsChecked] = useState(false)
   const [isFake, setIsFake] = useState<boolean>(false)
+  const [postNews] = usePostNewsMutation();
 
   const toggleExpand = () => setIsExpanded(!isExpanded)
 
-  const checkFakeNews = () => {
-    setIsChecked(true)
-    setIsFake(true)
+  const checkFakeNews = async () => {
+    try {
+      const newsItem = {model: "LR", text: item.text}
+      const response = await postNews(newsItem).unwrap();
+      setIsChecked(true);
+      setIsFake(!response.prediction)
+    } catch (error) {
+      console.error('Failed to post news item:', error);
+    }
   }
 
   return (
