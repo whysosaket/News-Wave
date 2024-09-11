@@ -44,7 +44,7 @@ export const newsApiSlice = createApi({
       // `providesTags` determines which 'tag' is attached to the
       // cached data returned by the query.
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      providesTags: (result, error, id) => [{ type: "News", id: "LIST" }],
+      // providesTags: (result, error, id) => [{ type: "News", id: "LIST" }],
     }),
     postNews: build.mutation<NewsPostResponse, NewsPostData>({
       query: (newNewsItem={model: "LR", text: ""}) => ({

@@ -1,5 +1,3 @@
-"use client"
-
 import { useState } from "react"
 import { Search, CalendarIcon } from "lucide-react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
@@ -86,7 +84,6 @@ export default function EnhancedFilterComponent() {
                     mode="range"
                     defaultMonth={date.from}
                     selected={date}
-                    onSelect={setDate}
                     numberOfMonths={2}
                   />
                 </PopoverContent>
